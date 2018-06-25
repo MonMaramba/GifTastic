@@ -10,13 +10,7 @@ var sportsChamps=["Michael Schumacher", "Tiger Woods", "Roger Federer", "Chris F
     var button;
 
 for (i=0; i < sportsChamps.length; i++){
-    /*$('<button/>'), {
-        text: sportsChamps[i];
-        id: 'btn' + i,
-        click; function() {
-            alert(this.text);
-        }
-    }*/
+   
     //$("buttonHolder").empty();
     $("")
     athletes = sportsChamps[i];
@@ -35,7 +29,6 @@ for (i=0; i < sportsChamps.length; i++){
 
 $("button").on('click', function(){
     event.preventDefault();
-    //$("button").attr(this.id);
     var champString = (this.id);
     var champArr = champString.split(" ");
     firstName = champArr[0];
@@ -43,7 +36,57 @@ $("button").on('click', function(){
 
     console.log(firstName);
     console.log(lastName);
+
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + firstName + "+" + lastName + "&api_key=dc6zaTOxFJmzC&limit=5&rating=pg-13";
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+
+        .then(function(response) {
+            JSON.stringify(response);
+            console.log(queryURL);
+            console.log(response);
+
+        
+            for (var i=0; i < response.length; i++){
+
+                var rating = response[i].rating;
+                var pR = $("<p>").text("Rating" + rating);
+                gifHolder.append(pR);
+                console.log(response[i].rating);
+
+
+                var gifURL = response.images.downsized_still;
+                gifURL.attr("data-state", "still");
+                gifURL.attr("class", "gif");
+                var annimGifURL = response.images.downsized;
+                annimGifURL.attr("data-state", "animate");
+                annimGifURL.attr("class", "gif");
+                
+                var gifDisp = $("<img>");
+                gifDisp.attr("src", gifURL);
+
+                $(".gif").on("click", function() {
+                    var state = $(this).attr("data-state");
+
+                    /*if (state === "still") {
+                        $(this).attr("src", $(this).attr("data-state"));
+                    }*/
+                })
+
+
+                
+
+            } 
+            
+
+
+        })
+    
 });
+gifHolder.insertAfter(".container");
 
 //$(HTMLBodyElement).append(buttonHolder);
 
