@@ -58,7 +58,10 @@ $("button").on('click', function(){
                 gifHolder.append(p1);
                 console.log(rating);
 
-                
+                var gifURL = $("<img>");
+                gifURL.attr("src", results[i].images.downsized_still.url);
+                gifHolder.append(gifURL);
+
                 
 
 
