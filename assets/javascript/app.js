@@ -45,15 +45,25 @@ $("button").on('click', function(){
     })
 
         .then(function(response) {
-            JSON.stringify(response);
+            //JSON.stringify(response);
             console.log(queryURL);
             console.log(response);
 
-        
-            for (var i=0; i < response.length; i++){
+            var results = response.data;
 
-                var rating = response[i].rating;
-                var pR = $("<p>").text("Rating" + rating);
+            for (var i=0; i < results.length; i++){
+
+                var rating = results[i].rating;
+                var p1 = $("<p>").text("Rating: " + rating);
+                gifHolder.append(p1);
+                console.log(rating);
+
+                
+                
+
+
+               /* var rating = response[i].rating;
+                var pR = $("<p>").text("Rating: " + rating);
                 gifHolder.append(pR);
                 console.log(response[i].rating);
 
@@ -66,15 +76,15 @@ $("button").on('click', function(){
                 annimGifURL.attr("class", "gif");
                 
                 var gifDisp = $("<img>");
-                gifDisp.attr("src", gifURL);
+                gifDisp.attr("src", gifURL);*/
 
-                $(".gif").on("click", function() {
+                /*$(".gif").on("click", function() {
                     var state = $(this).attr("data-state");
 
-                    /*if (state === "still") {
+                    if (state === "still") {
                         $(this).attr("src", $(this).attr("data-state"));
-                    }*/
-                })
+                    }
+                })*/
 
 
                 
