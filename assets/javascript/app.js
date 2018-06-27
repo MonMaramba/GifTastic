@@ -1,6 +1,6 @@
 //key uHY92bdnYhXNwpf69CggQTfGW79oMQ1N
 //initial array of sports champions
-var sportsChamps=["Michael Schumacher", "Tiger Woods", "Roger Federer", "Chris Froome",  "Venus Williams", "Manny Pacquiao", "Lindsey Vonn"];
+var sportsChamps=["Michael Schumacher", "Tiger Woods", "Roger Federer", "Chris Froome",  "Venus Williams", "Manny Pacquiao", "Lebron James"];
 
 //creates divs to hold buttons and gifs
     //var buttonHolder = $('<div>');
@@ -11,8 +11,8 @@ var sportsChamps=["Michael Schumacher", "Tiger Woods", "Roger Federer", "Chris F
 
 for (i=0; i < sportsChamps.length; i++){
    
-    //$("buttonHolder").empty();
-    $("")
+    $("buttonHolder").empty();
+    
     athletes = sportsChamps[i];
     button = $('<button>' + sportsChamps[i] + '</button>');
     button.attr("id", sportsChamps[i]);
@@ -53,15 +53,14 @@ $("button").on('click', function(){
 
             for (var i=0; i < results.length; i++){
 
-                var rating = results[i].rating;
-                var p1 = $("<p>").text("Rating: " + rating);
-                gifHolder.append(p1);
-                console.log(rating);
-
                 var gifURL = $("<img>");
                 gifURL.attr("src", results[i].images.downsized_still.url);
-                gifHolder.append(gifURL);
+                gifHolder.prepend(gifURL);
 
+                var rating = results[i].rating;
+                var p1 = $("<p>").text("Rating: " + rating);
+                gifHolder.prepend(p1);
+                console.log(rating);
                 
 
 
