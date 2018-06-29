@@ -14,32 +14,18 @@ function renderButton() {
    
     //athletes = sportsChamps[i];
     var button = $('<button>' + sportsChamps[i] + '</button>');
-    button.attr("id", sportsChamps[i]);
-    //button.attr("name", sportsChamps[i]);
+    //button.attr("id", sportsChamps[i]);
+    button.addClass("button");
     button.text(sportsChamps[i]);
     $(buttonHolder).append(button);
-    $(".container").append(buttonHolder);
-    
+    $(".container").append(buttonHolder);   
 } 
 };
 renderButton();
-//function for onclick event to request from giphy
-    // var firstName;
-    // var lastName;
-    // var champArr = [];
     
-$("button").on('click', function(event){
+$(document).on('click', ".button",  function(event){
     event.preventDefault();
-    var champString = (this.id);
-    /*champArr = champString.split(" ");
-    firstName = champArr[0];
-    lastName = champArr[1];*/
-
-    
-
-    //console.log(firstName);
-    //console.log(lastName);
-    console.log(athletes);
+    var champString = $(this).text();
 
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + /*firstName + "+" + lastName +*/champString + "&api_key=dc6zaTOxFJmzC&limit=5&rating=pg-13";
 
@@ -88,17 +74,17 @@ $("button").on('click', function(event){
 
     var star = "";
 
-$("#addChamp").on("click", function(event) {
+$(document).ready(function(){
+    $("#addChamp").on("click", function(event) {
     event.preventDefault();
     // Input from html form
-    star = $("#sportsHero").val().trim;
+    star = $("#sportsHero").val().trim();
 
     sportsChamps.push(star);
     console.log(sportsChamps);
     renderButton();
-  });
+  })
+});
 
 //renderButton();
 gifHolder.insertAfter(".container");
-
-
