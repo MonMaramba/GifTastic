@@ -1,48 +1,47 @@
 //key uHY92bdnYhXNwpf69CggQTfGW79oMQ1N
 //initial array of sports champions
-var sportsChamps=["Michael Schumacher", "Tiger Woods", "Roger Federer", "Chris Froome",  "Venus Williams", "Manny Pacquiao",];
+var sportsChamps=["Michael Schumacher", "Tiger Woods", "Roger Federer", "Chris Froome",  "Venus Williams", "Manny Pacquiao", "Lebron James"];
 
 //create divs to hold buttons and gifs plus variable declaration
     var buttonHolder = $('<div>');
     var gifHolder = $('<div>');
-    var star="";
-    var athletes;
-    var button;
-
+    //var athletes;
+    
 function renderButton() {
     $(buttonHolder).empty();
 
     for (i=0; i < sportsChamps.length; i++){
    
-    athletes = sportsChamps[i];
-    button = $('<button>' + sportsChamps[i] + '</button>');
+    //athletes = sportsChamps[i];
+    var button = $('<button>' + sportsChamps[i] + '</button>');
     button.attr("id", sportsChamps[i]);
     //button.attr("name", sportsChamps[i]);
-    button.text(athletes);
+    button.text(sportsChamps[i]);
     $(buttonHolder).append(button);
     $(".container").append(buttonHolder);
     
 } 
 };
 renderButton();
-
-
 //function for onclick event to request from giphy
+    // var firstName;
+    // var lastName;
+    // var champArr = [];
     
-    var firstName;
-    var lastName;
-    var champArr = [];
-$("button").on('click', function(){
+$("button").on('click', function(event){
     event.preventDefault();
     var champString = (this.id);
-    champArr = champString.split(" ");
+    /*champArr = champString.split(" ");
     firstName = champArr[0];
-    lastName = champArr[1];
+    lastName = champArr[1];*/
 
-    console.log(firstName);
-    console.log(lastName);
+    
 
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + firstName + "+" + lastName + "&api_key=dc6zaTOxFJmzC&limit=5&rating=pg-13";
+    //console.log(firstName);
+    //console.log(lastName);
+    console.log(athletes);
+
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + /*firstName + "+" + lastName +*/champString + "&api_key=dc6zaTOxFJmzC&limit=5&rating=pg-13";
 
     $.ajax({
         url: queryURL,
@@ -50,16 +49,13 @@ $("button").on('click', function(){
     })
 
         .then(function(response) {
-            //JSON.stringify(response);
-            console.log(queryURL);
-            console.log(response);
-
             var results = response.data;
 
-            for (var j=0; j < results.length; j++){
+              for (var j=0; j < results.length; j++){
 
                 var gifIMG = $("<img>");
-                //gifURL.attr("src", results[j].images.fixed_height_still.url);
+                //gif to display is will be an object with 2 urls...  1 for animated and another for still
+                
                 gifIMG.attr({
                     "src": results[j].images.fixed_height_still.url,
                     "data-state": "still",
@@ -67,6 +63,7 @@ $("button").on('click', function(){
                     "data-animate": results[j].images.fixed_height.url,
                     });
 
+                //pause and play function. Changing data-state
                 gifIMG.on("click", function() {
 
                     var state = $(this).attr("data-state");
@@ -89,13 +86,15 @@ $("button").on('click', function(){
                  })
 });
 
-$("#addChamp").on("click", function() {
+    var star = "";
+
+$("#addChamp").on("click", function(event) {
     event.preventDefault();
     // Input from html form
-    star = $("#sportsStar").val().trim;
+    star = $("#sportsHero").val().trim;
 
     sportsChamps.push(star);
-
+    console.log(sportsChamps);
     renderButton();
   });
 
